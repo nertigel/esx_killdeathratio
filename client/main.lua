@@ -82,6 +82,6 @@ end
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
-        drawText(('K: '..datastore.kills..'\nD: '..datastore.deaths..'\nR: '..datastore.total), 0.0, 0.85, 255, 255, 255, 255)
+        drawText(('K: '..datastore.kills..'\nD: '..datastore.deaths..'\nR: '..datastore.total), 0.0, 0.035, 255, 255, 255, 255)
     end
 end)
