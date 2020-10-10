@@ -14,6 +14,12 @@ local Keys = {
 	["NENTER"] = 201, ["N4"] = 108, ["N5"] = 60, ["N6"] = 107, ["N+"] = 96, ["N-"] = 97, ["N7"] = 117, ["N8"] = 61, ["N9"] = 118
 }
 
+local datastore = {
+    kills = 0,
+    deaths = 0,
+    total = 1.00
+}
+
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
@@ -42,13 +48,40 @@ end)
 --[[main shit]]
 RegisterNetEvent('esx_killdeathratio:pushUpdate')
 AddEventHandler('esx_killdeathratio:pushUpdate', function(data)
-	print('Kills: '..data.kills..'\n'..'Deaths: '..data.deaths)
+	if data then
+		datastore = {
+			kills = data.kills,
+			deaths = data.deaths
+		}
+		datastore.total = ESX.Math.Round((data.kills / data.deaths), 2)
+	end
 end)
 
+--[[heartbeat]]
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(10000)
 		print('kdr update sent')
 		TriggerServerEvent('esx_killdeathratio:requestUpdate')
 	end
+end)
+
+local drawText = function(text, x, y, r, g, b, a)
+	SetTextFont(4)
+	SetTextScale(0.5, 0.5)
+	SetTextColour(r, g, b, a)
+	SetTextDropshadow(0, 0, 0, 0, 255)
+	SetTextDropShadow()
+	SetTextOutline()
+
+	BeginTextCommandDisplayText('STRING')
+	AddTextComponentSubstringPlayerName(tostring(text))
+	EndTextCommandDisplayText(x, y)
+end
+
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(0)
+        drawText(('K: '..datastore.kills..'\nD: '..datastore.deaths..'\nR: '..datastore.total), 0.0, 0.85, 255, 255, 255, 255)
+    end
 end)
