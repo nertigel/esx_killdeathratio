@@ -1,2 +1,4 @@
-# esx_killdeathratio
-script used to store &amp; count kills/deaths
+# fxserver-esx_boilerplate
+FXServer ESX Boilerplate
+
+This a sample script for es_extended
