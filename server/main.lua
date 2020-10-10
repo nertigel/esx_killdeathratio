@@ -14,9 +14,6 @@ end
 
 insertData = function(target, type)
     local xPlayer = ESX.GetPlayerFromId(target)
-    if type ~= 'kills' or type ~= 'deaths' then
-        type = 'deaths'
-    end
 
 	if xPlayer then
         MySQL.Async.fetchAll('SELECT * FROM kdr WHERE identifier = @identifier', {
@@ -62,7 +59,7 @@ AddEventHandler('esx:onPlayerDeath', function(data)
 
     if data and data.victim then
         insertData(data.victim, 'deaths')
-        if data.killerServerId then
+        if data.killedByPlayer then
             insertData(data.killerServerId, 'kills')
         end
     else
