@@ -20,7 +20,6 @@ insertData = function(target, type)
             ['@identifier'] = xPlayer.identifier
         }, function(result)
             if result[1] then
-                print('11')
                 local data = {
                     kills = result[1].kills,
                     deaths = result[1].deaths,
@@ -40,7 +39,6 @@ insertData = function(target, type)
                     print(GetPlayerName(target)..' attempted to exploit insertData by providing an incorrect type')
                 end
             else
-                print('12')
                 createUser(xPlayer)
             end
         end)
@@ -79,7 +77,6 @@ AddEventHandler('esx_killdeathratio:requestUpdate', function()
             ['@identifier'] = xPlayer.identifier
         }, function(result)
             if result[1] then
-                print('1')
                 local data = {
                     kills = result[1].kills,
                     deaths = result[1].deaths,
@@ -87,7 +84,6 @@ AddEventHandler('esx_killdeathratio:requestUpdate', function()
 
                 TriggerClientEvent('esx_killdeathratio:pushUpdate', _source, data)
             else
-                print('2')
                 createUser(xPlayer)
             end
         end)
