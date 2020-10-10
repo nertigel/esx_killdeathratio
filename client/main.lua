@@ -51,9 +51,9 @@ AddEventHandler('esx_killdeathratio:pushUpdate', function(data)
 	if data then
 		datastore = {
 			kills = data.kills,
-			deaths = data.deaths
+			deaths = data.deaths,
+			total = ESX.Math.Round(data.kills / data.deaths, 2)
 		}
-		datastore.total = ESX.Math.Round((data.kills / data.deaths), 2)
 	end
 end)
 
