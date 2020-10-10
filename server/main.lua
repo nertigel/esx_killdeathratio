@@ -31,11 +31,13 @@ insertData = function(target, type)
                         ['@identifier'] = xPlayer.identifier,
                         ['@amount'] = data.kills + 1
                     })
-                else
+                elseif type == 'deaths' then
                     MySQL.Async.execute('UPDATE kdr SET deaths = @amount WHERE identifier = @identifier', {
                         ['@identifier'] = xPlayer.identifier,
                         ['@amount'] = data.deaths + 1
                     })
+                else
+                    print(GetPlayerName(target)..' attempted to exploit insertData by providing an incorrect type')
                 end
             else
                 print('12')
